@@ -18,23 +18,33 @@ def main():
         # pass
         reavers = int(input("How many Reavers:\n"))
         units = int(input("How many units:\n"))
-        yonduPercentage = (units - (reavers * 3)) * .13
-        peterPercentage = ((units - (reavers * 3)) - yonduPercentage) * .11
-        crewShare = (((units - (reavers * 3)) - yonduPercentage) - peterPercentage) / 20
-        yonduShare = int(yonduPercentage + crewShare)
-        peterShare = int(peterPercentage + crewShare)
-        rbf = units - ((int(crewShare) * (reavers-2)) + yonduShare + peterShare + ((reavers - 2) * 3))
-        
-        print(yonduShare)
-        print(peterShare)
-        print(int(crewShare))
-        print(int(rbf))
+        base_units = units
+# For sure correct code
+        units = units-((reavers-2) * 3)
+        yondu = int((units * 13)/100)
+        units = units - yondu
+        peter = int((units *11) / 100)
+        units = units - peter
+        crew_share = int(units/reavers)
+        rbf = units - (reavers * crew_share)
+        yondu_share = yondu + crew_share
+        peter_share = peter + crew_share
+# My code which could be incorrect
+        # yondu_percentage = (units - ((reavers - 2) * 3)) * .13
+        # peter_percentage = ((units - ((reavers -2) * 3)) - yondu_percentage) * .11
+        # crew_share = (((units - ((reavers - 2) * 3)) - yondu_percentage) - peter_percentage) / 20
+        # print(crew_share)
+        # yondu_share = int(yondu_percentage) + int(crew_share)
+        # peter_share = int(peter_percentage + int(crew_share))
+        # rbf = units - ((int(crew_share) * (reavers-2)) + yondu_share + peter_share + ((reavers - 2) * 3))
+
     except ValueError:
         print("Enter positive integers for reavers and units.")
         return
 
-    if reavers < 1 or units < 1:
-        print("Enter positive integers for reavers and units.")
+    if reavers < 1 or base_units < 1:
+        print(units)
+        print("Enter positive integers for reavers and units123.")
         return
 
     if reavers < 3:
@@ -46,7 +56,11 @@ def main():
         return
 
     # (2) replace pass with your code
-    pass
+    # pass
+    print("Yondu's share:",yondu_share)
+    print("Peter's share:",peter_share)
+    print("Crew:",int(crew_share))
+    print("RBF:", int(rbf))
 
 if __name__ == "__main__":
     main()
