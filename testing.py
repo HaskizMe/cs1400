@@ -18,13 +18,16 @@ def main():
         # pass
         reavers = int(input("How many Reavers:\n"))
         units = int(input("How many units:\n"))
-        yonduPercentage = (units - (reavers * 3)) * .13 
-        peterPercentage = ((units - (reavers * 3)) - yonduPercentage) * .11
-        crewShare = (((units - (reavers * 3)) - yonduPercentage) - peterPercentage) / 20
-        print(int(yonduPercentage + crewShare))
-        print(int(peterPercentage + crewShare))
-        print(int(crewShare))
-        print(int())
+        yondu_percentage = (units - (reavers * 3)) * .13 
+        peter_percentage = ((units - (reavers * 3)) - yondu_percentage) * .11
+        crew_share = (((units - (reavers * 3)) - yondu_percentage) - peter_percentage) / 20
+        crew_share_int = int((((units - (reavers * 3)) - yondu_percentage) - peter_percentage) / 20)
+        yondu_share = int(yondu_percentage + crew_share)
+        peter_share = int(peter_percentage + crew_share)
+        print("Yondu's Share: " + str(yondu_share))
+        print("Peter's Share: " + str(peter_share))
+        print("Crew: " + str(crew_share_int))
+        # print(int())
     except ValueError:
         print("Enter positive integers for reavers and units.")
         return
@@ -42,7 +45,7 @@ def main():
         return
 
     # (2) replace pass with your code
-    pass
+    # pass
 
 if __name__ == "__main__":
     main()
