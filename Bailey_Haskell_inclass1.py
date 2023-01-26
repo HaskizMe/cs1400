@@ -1,3 +1,4 @@
+
 try:
     val = float (input("Enter a dividend: "))
     val2 = float (input("Enter a divisor: "))
@@ -6,5 +7,3 @@ try:
 
 except ValueError:
     print("Please enter a number")
-
-
