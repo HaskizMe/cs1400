@@ -25,10 +25,13 @@ def get_dimensions():
 def triangle(color, size, tilt):
     '''Draws a triangle'''
     turtle.fillcolor(color)
-    turtle.begin_fill()      
-    for i in range(3):
+    turtle.begin_fill() 
+    i = 0     
+    # for i in range(3):
+    while i < 3:
         turtle.lt(tilt)
         turtle.forward(size)
+        i+=1
 
     turtle.end_fill()
 
@@ -36,9 +39,11 @@ def square(color,size,tilt):
     '''Draws a square'''
     turtle.fillcolor(color)
     turtle.begin_fill()
-    for i in range(4):
+    j = 0
+    while j < 4:
         turtle.rt(tilt)
         turtle.forward(size)
+        j+=1
     turtle.end_fill()
 
 def circle(color, size, tilt):
@@ -96,4 +101,5 @@ def draw(width, height):
     turtle.Screen().setup(width, height)
 # Calls house function to draw a house
     draw_house()
+
     turtle.done()
