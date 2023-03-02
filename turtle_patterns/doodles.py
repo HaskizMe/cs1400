@@ -95,9 +95,7 @@ def draw_house():
     circle("yellow", circle_size, 0)
 
 def draw(width, height):
-    '''
-    Sets the size of the screen to width and height and draws a doodle.
-    '''
+    '''Sets the size of the screen to width and height and draws a doodle.'''
     turtle.Screen().setup(width, height)
 # Calls house function to draw a house
     draw_house()

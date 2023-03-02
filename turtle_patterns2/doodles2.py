@@ -11,8 +11,8 @@ import random
 def triangle(color, size, tilt):
     '''Draws a triangle'''
     turtle.fillcolor(color)
-    turtle.begin_fill() 
-    i = 0     
+    turtle.begin_fill()
+    i = 0
     while i < 3:
         turtle.lt(tilt)
         turtle.forward(size)
@@ -51,7 +51,6 @@ def rectangle(color, size, tilt):
     turtle.end_fill()
 
 def draw_house(scale, x_coord, y_coord, roof, body):
-    '''Draws a house'''
     '''setting size for house and using porportions to find door size and doorknob size'''
     tri_size = scale
     sq_size = tri_size
@@ -98,7 +97,7 @@ def draw_stars():
     i = 0
     while i < 15:
         move(random.randint(-490,490),random.randint(100,390))
-        draw_star()      
+        draw_star()
         i = i+1
 
 def draw_cloud():
@@ -146,7 +145,7 @@ def draw_birds():
     i = 0
     while i < 5:
         move(random.randint(-490,490),random.randint(100,390))
-        draw_bird()   
+        draw_bird()
         i = i+1
 
 def draw_houses():
@@ -202,14 +201,12 @@ def draw_scene(scene):
     turtle.setheading(0)
     draw_houses()
 
-def draw(list):
-    '''
-    Sets the size of the screen to width and height and draws a doodle.
-    '''
+def draw(my_list):
+    '''Sets the size of the screen to width and height and draws a doodle.'''
     turtle.Screen().setup(get_screen_width(), get_screen_height())
-    if list[0] == "night":
+    if my_list[0] == "night":
         draw_scene("night")
-    elif list[0] == "day":
+    elif my_list[0] == "day":
         draw_scene("day")
     else:
         print("Please enter either 'day' or 'night'")
