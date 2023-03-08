@@ -12,7 +12,8 @@ def radius(x2, y2):
 
 def circum(a, b):
     # Circumference formula
-    circumference = 2*math.pi*radius(a, b)
+    r = radius(a,b)
+    circumference = 2*math.pi*r
     return round(circumference,2)
 
 def area(a, b):
