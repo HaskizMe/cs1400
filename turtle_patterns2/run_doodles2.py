@@ -24,7 +24,7 @@ def save_to_image(dest='doodle.png'):
                    '-dEPSCrop',
                    '-sDEVICE=png16m',
                    tmp.name]
-        try:
+        try: 
             subprocess.run(command,
                            stdout=subprocess.PIPE,
                            stderr=subprocess.STDOUT,

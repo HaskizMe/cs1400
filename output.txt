@@ -1,0 +1,3 @@
+Longest word(s) in the paragraph: ['entertainment', 'Technological']
+Shortest word(s) in the paragraph: ['a']
+Word count of paragraph: 531

@@ -5,7 +5,6 @@
 # line_count = 0
 # char_count = 0
 
-<<<<<<< HEAD
 # with open(test_file, "r") as input_file:
 #     line = input_file.readline()
 #     while line != "":
@@ -16,79 +15,78 @@
 # print("{} lines".format(line_count))
 # print("{} characters".format(char_count))
 
-import sys
+#problem 2
+# import sys, csv
 
-results = []
-test_file = sys.argv[1]
-with open(test_file, "r") as input_file:
-    for row in input_file:
-        results.append(row)
-=======
-# for i in range(len(numbers)):
-#   if(numbers[i]%2 ==0):
-#     numbers[i] = "even"
-#   else:
-#     numbers[i] = "odd"
-# print(numbers)
+# test_file = sys.argv[1]
 
-# exercise 1
-# def avg(a,b):
-#     if(isinstance(a, int) and isinstance(b,int)):
-#         average = (a + b)/2
-#         return average
+# total1 = 0
+# total2 = 0
+# total3 = 0
+# total4 = 0
+# row_count = 0
 
+# with open(test_file, "r") as input_file:
+#     reader = csv.reader(input_file)
+#     for num1, num2, num3, num4 in reader:
+#         row_count += 1
+#         total1 += int(num1)
+#         total2 += int(num2)
+#         total3 += int(num3)
+#         total4 += int(num4)
+
+# print("{} {} {} {}".format(total1/row_count, total2/row_count, total3/row_count, total4/row_count))
+
+# problem 3 
+# import sys
+
+# test_file = sys.argv[1]
+
+# with open(test_file, "r") as input_file:
+#     lines = input_file.readlines()
+#     lines.reverse()
+#     for line in lines:
+#         print(line)
+# problem 4
+# import sys, csv
+
+# test_file = sys.argv[1]
+# oldest_age = 0
+# oldest_name = ""
+
+# with open(test_file, "r") as input_file:
+#     reader = csv.reader(input_file, delimiter="\t")
+#     next(reader)
+#     for name, age, career in reader:
+#         if int(age) > oldest_age:
+#             oldest_age = int(age)
+#             oldest_name = name
+            
+# print("The oldest person is {}.".format(oldest_name))
+
+#problem 5
+# import sys, csv
+
+# test_file = sys.argv[1]
+# cities = []
+
+# with open(test_file, "r") as input_file:
+#     reader = csv.reader(input_file)
+#     next(reader)
+#     for city, country, latitude, longitude in reader:
+#         if int(latitude) < 0:
+#             cities.append(city)
+            
+# print("The following cities are in the Southern Hemisphere: ", end="")
+# for city in cities:
+#     if city == cities[-1]:
+#         print(city + ".")
 #     else:
-#         return "Please use two numbers as parameters"
-
-# Exercise 2
-# def odds_or_evens(bool, list):
-#     evens = []
-#     odds = []
-#     if(bool):
-#         for i in range(len(list)):
-#             if(list[i] % 2 ==0):
-#                 evens.append(list[i])
-#         return evens
-#     elif(not bool):
-#         for i in range(len(list)):
-#             if(list[i] % 2 != 0):
-#                 odds.append(list[i])
-#         return odds         
-
-# Exercise 3
-# def search_list(lst, term):
-#     """Search for item in a list
-#     Return the index if found
-#     Return -1 if not found"""
-#     for item in lst:
-#         if item.lower() == term.lower():
-#             return lst.index(item)
-#     return -1
-
-# Exercise 4
-# import csv
-
-# mlb_data = "student_folder/.exercises/mlb_data.csv"
-
-# def best_team(file):
-#     """Read a CSV of baseball data.
-#     Return the team name with the most wins"""
-#     with open(file, "r") as csv_file:
-#         reader = csv.reader(csv_file)
-#         next(reader)
-#         most_wins = 0
-#         best_team = ""
-#         for row in reader:
-#             if int(row[3]) > most_wins:
-#                 most_wins = int(row[3])
-#                 best_team = row[0]
-#         return best_team
-
-# Exercise 5
-# def is_palindrome(str):
-#   if(str.lower() == str[::-1].lower()):
-#     return True
-  
-#   return False
-
->>>>>>> edda75409d1b77a4fea31cf1464cf6ed8d15b1ce
+#         print(city, end=", ")
+with open("student_folder/.labs/myanmar.txt", "r") as input_file:
+    lines = input_file.readlines()
+    for line in lines:
+        if "Burma" in line:
+            print(line.replace("Burma", "Myanmar"), end="")
+        else:
+            print(line, end="")
