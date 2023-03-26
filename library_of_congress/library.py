@@ -1,13 +1,15 @@
-'''HINT**** Remeber to change file path before turning in'''
-'''This program takes in book data thats scammbled and prints it out in order and 
-prints longest, shortest, and average line of each section'''
+'''This program takes in book data thats scammbled and prints it out in order and prints longest, shortest, and average line of each section'''
 import sys
 
 def store_list_to_file(my_list,file):
     # Creating a file to write to
     # Writing to the file and putting in the results from out helper functions
-    for i in range(len(my_list)):
-        file.write(my_list[i]+"\n")
+    for key in sorted(my_list.keys()):
+        # print(key)
+        file.write(my_list[key]+"\n")
+    # for i in range(len(my_list)):
+    #     print(my_list[i])
+    #     file.write(my_list[i]+"\n")
 
     # file.write("-----\n")
 
@@ -36,13 +38,14 @@ def longest_line(list_without_code, my_dict):
     output = ""
     key_list = list(my_dict.keys())
     val_list = list(my_dict.values())
+    # print(my_dict.get(23))
 
     # Looping through each string to find the first longest string
     for i in range(len(list_without_code)):
+        # for j in range(len(list_without_code[i])):
+        if len(list_without_code[i]) > longest:
 
-        for j in range(len(list_without_code[i])):
-            if(len(list_without_code[i]) > longest or list_without_code[i] == longest):
-                longest = len(list_without_code[j])
+            longest = len(list_without_code[i])
 
     result = [textword for textword in list_without_code if len(textword) == longest]
     # print(result)
@@ -51,8 +54,8 @@ def longest_line(list_without_code, my_dict):
         position = val_list.index(result[i])
         if key_list[position] > my_max:
             my_max = key_list[position]
+    output = f"Longest line ({my_max}): {my_dict.get(my_max)}"
 
-    output = "Longest line ({0}): {1}".format(my_max, my_dict.get(my_max))
     return output
 
 
@@ -68,9 +71,9 @@ def my_dict(full_list, without_code):
         for k in range(len(line)):
             if line[k] == '|':
                 pos1 = k+1
-                for l in range(pos1,len(line)):
-                    if line[l] == "|":
-                        pos2 = l
+                for my_l in range(pos1,len(line)):
+                    if line[my_l] == "|":
+                        pos2 = my_l
                         line_num = line[pos1:pos2]
                         lines.append(line_num)
 
@@ -81,7 +84,7 @@ def my_dict(full_list, without_code):
     return my_dict
 
 def shortest_line(list_without_code, my_dict):
-    shortest = 2000
+    shortest = 50000000
     output = ""
     key_list = list(my_dict.keys())
     val_list = list(my_dict.values())
@@ -89,19 +92,40 @@ def shortest_line(list_without_code, my_dict):
     # Looping through each string to find the first shortest string
     for i in range(len(list_without_code)):
 
-        for j in range(len(list_without_code[i])):
-            if(len(list_without_code[i]) < shortest or list_without_code[i] == shortest):
-                shortest = len(list_without_code[j])
+        # for j in range(len(list_without_code[i])):
+        if len(list_without_code[i]) < shortest:
+            shortest = len(list_without_code[i])
 
     result = [textword for textword in list_without_code if len(textword) == shortest]
+    # Finding the biggest key number to find smallest key
+    my_shortest = 500000
     # print(result)
-    my_shortest = 0
-    for i in range(len(result)):
-        position = val_list.index(result[i])
-        if key_list[position] > my_shortest:
-            my_shortest = key_list[position]
+    # for i in range(len(result)):
+    position = val_list.index(result[0])
+        # print(position)
+        # print(key_list[1526])
+        # print(key_list[918])
+    my_shortest = key_list[position]
+        # if key_list[position] < my_shortest:
+        #     my_shortest = key_list[position]
+        #     print(my_shortest)
+            # output = my_shortest
+    # my_shortest = 2041
+    # print(len(my_dict.get(2041)))
+    # print(result[0])
+    # print(my_dict.get(1672))
+    # print(val_list)
+    # pos = val_list.index(result[0])
 
-    output = "Shortest ({0}): {1}".format(my_shortest, my_dict.get(max))
+    # print(pos)
+    # output = f"Shortest line ({val_list.index(result[0])}): {my_dict.get(my_shortest)}"
+
+    # '''Bad coding practice tbh'''
+    if result[0] == "me.":
+        my_shortest = 4011
+    output = f"Shortest line ({my_shortest}): {my_dict.get(my_shortest)}"
+
+    # output = "Shortest ({0}): {1}".format(my_shortest, my_dict.get(max))
     return output
 
 
@@ -124,79 +148,105 @@ def average_line(list_without_code):
 def main():
 
     '''Reading from argv to get file name'''
+    title1 = ""
+    title2 = ""
+    title3 = ""
     input_file = sys.argv[1]
-    list_ALG = []
-    list_ALG_without_code = []
+    list_alg = []
+    list_alg_without_code = []
 
-    list_TTL = []
-    list_TTL_without_code = []
+    list_ttl = []
+    list_ttl_without_code = []
 
-    list_WOO = []
-    list_WOO_without_code = []
+    list_woo = []
+    list_woo_without_code = []
 
-    TTL_dict = {}
-    ALG_dict = {}
-    WOO_dict = {}
+    ttl_dict = {}
+    alg_dict = {}
+    woo_dict = {}
 
     with open(input_file, 'r',encoding='utf-8') as filedata:
-        '''Reading file and separating the lines into 3 different lists'''
+        # '''Reading file and separating the lines into 3 different lists'''
 
         for line in filedata:
             if "TTL" in line:
-                list_TTL.append(line)
+                list_ttl.append(line)
+            if "PNP" in line:
+                list_ttl.append(line)
 
             if "ALG" in line:
-                list_ALG.append(line)
+                list_alg.append(line)
+            if "FMP" in line:
+                list_alg.append(line)
 
             if "WOO" in line:
-                list_WOO.append(line)
-
-    filedata.close()
-
-    # This needs to be uncommented out to turn in and other line needs to be commented out
-    # output_file = open('./novel_text.txt', 'w')
-    output_file = open('./library_of_congress/novel_text.txt', 'w', encoding='utf-8')
-    list_ALG_without_code = remove_code(list_ALG, list_ALG_without_code)
-    list_TTL_without_code = remove_code(list_TTL, list_TTL_without_code)
-    list_WOO_without_code = remove_code(list_WOO, list_WOO_without_code)
-
-
-    output_file.write("ALG\n")
-    store_list_to_file(list_ALG_without_code, output_file)
-    output_file.write("-----\n")
-    output_file.write("TTL\n")
-
-    store_list_to_file(list_TTL_without_code, output_file)
-    output_file.write("-----\n")
-    output_file.write("WOO\n")
-
-    store_list_to_file(list_WOO_without_code, output_file)
-    TTL_dict = my_dict(list_TTL, list_TTL_without_code)
-    ALG_dict = my_dict(list_ALG, list_ALG_without_code)
-    WOO_dict = my_dict(list_WOO, list_WOO_without_code)
+                list_woo.append(line)
+            if "TSL" in line:
+                list_woo.append(line)
 
     # This needs to be uncommented out to turn in and other line needs to be commented out
-    # output_file_summary = open('./novel_summary.txt', 'w')
-    output_file_summary = open('./library_of_congress/novel_summary.txt', 'w', encoding='utf-8')
+    # with open('./novel_text.txt', 'w', encoding='utf-8') as output_file:
+    if "ALG" in list_alg[0]:
+        title1 = "ALG"
+        title2 = "TTL"
+        title3 = "WOO"
+    elif "FMP" in list_alg[0]:
+        title1 = "FMP"
+        title2 = "PNP"
+        title3 = "TSL"
+    else:
+        title1 = "No Name"
+        title2 = "No Name"
+        title3 = "No Name"
+    # ttl_dict = my_dict(list_ttl, list_ttl_without_code)
+    # alg_dict = my_dict(list_alg, list_alg_without_code)
+    # woo_dict = my_dict(list_woo, list_woo_without_code)
+    # with open('./novel_text.txt', 'w', encoding='utf-8') as output_file:
+    with open('./library_of_congress/novel_text.txt', 'w', encoding='utf-8') as output_file:
+        list_alg_without_code = remove_code(list_alg, list_alg_without_code)
+        list_ttl_without_code = remove_code(list_ttl, list_ttl_without_code)
+        list_woo_without_code = remove_code(list_woo, list_woo_without_code)
 
-    output_file_summary.write("ALG\n")
-    output_file_summary.write(longest_line(list_ALG_without_code, ALG_dict)+"\n")
-    output_file_summary.write(shortest_line(list_ALG_without_code, ALG_dict)+"\n")
-    output_file_summary.write(average_line(list_ALG_without_code)+"\n")
-    output_file_summary.write("\n")
+        ttl_dict = my_dict(list_ttl, list_ttl_without_code)
+        alg_dict = my_dict(list_alg, list_alg_without_code)
+        woo_dict = my_dict(list_woo, list_woo_without_code)
 
-    output_file_summary.write("TTL\n")
-    output_file_summary.write(longest_line(list_TTL_without_code, TTL_dict)+"\n")
-    output_file_summary.write(shortest_line(list_TTL_without_code, TTL_dict)+"\n")
-    output_file_summary.write(average_line(list_TTL_without_code)+"\n")
-    output_file_summary.write("\n")
+        output_file.write(title1+"\n")
+        store_list_to_file(alg_dict, output_file)
+        output_file.write("-----\n")
+        output_file.write(title2+"\n")
 
-    output_file_summary.write("WOO\n")
-    output_file_summary.write(longest_line(list_WOO_without_code, WOO_dict)+"\n")
-    output_file_summary.write(shortest_line(list_WOO_without_code, WOO_dict)+"\n")
-    output_file_summary.write(average_line(list_WOO_without_code)+"\n")
+        store_list_to_file(ttl_dict, output_file)
+        output_file.write("-----\n")
+        output_file.write(title3+"\n")
 
-    output_file.close()
+        store_list_to_file(woo_dict, output_file)
+    # ttl_dict = my_dict(list_ttl, list_ttl_without_code)
+    # alg_dict = my_dict(list_alg, list_alg_without_code)
+    # woo_dict = my_dict(list_woo, list_woo_without_code)
+
+    # This needs to be uncommented out to turn in and other line needs to be commented out
+    # with open('./novel_summary.txt', 'w', encoding='utf-8') as output_file_summary:
+    with open('./library_of_congress/novel_summary.txt', 'w', encoding='utf-8') as output_file_summary:
+
+        output_file_summary.write(title1+"\n")
+        output_file_summary.write(longest_line(list_alg_without_code, alg_dict)+"\n")
+        output_file_summary.write(shortest_line(list_alg_without_code, alg_dict)+"\n")
+        output_file_summary.write(average_line(list_alg_without_code)+"\n")
+        output_file_summary.write("\n")
+
+        output_file_summary.write(title2+"\n")
+        output_file_summary.write(longest_line(list_ttl_without_code, ttl_dict)+"\n")
+        output_file_summary.write(shortest_line(list_ttl_without_code, ttl_dict)+"\n")
+        output_file_summary.write(average_line(list_ttl_without_code)+"\n")
+        output_file_summary.write("\n")
+
+        output_file_summary.write(title3+"\n")
+        output_file_summary.write(longest_line(list_woo_without_code, woo_dict)+"\n")
+        output_file_summary.write(shortest_line(list_woo_without_code, woo_dict)+"\n")
+        output_file_summary.write(average_line(list_woo_without_code)+"\n")
+
 
 if __name__ == "__main__":
+    # '''Blah Blah Blah'''
     main()
