@@ -13,14 +13,24 @@ def extract_data(file):
         csvReader = csv.reader(filedata, delimiter=',')
         for line in csvReader:
             # Grabbing just the names and putting them in a list
-            names.append(line[0])
-            scores.append(line)
+            # names.append(line[0])
+            if not line.strip().split(','):
+                print(line)
+                scores.append(line)
     # loops through the lines and gets rid of the first element which is the names
-    for i in range(len(scores)):
+    print(len(scores))
+    # print(scores)
+    for i in range(1, len(scores)):
+        # print(scores)
+        names.append(scores[i][0])
+        # print(names)
+        # print(i)
         scores[i].pop(0)
-        for j in range(len(scores[0])):
+        for j in range(len(scores[1])):
             # Coverting the string to a float
-            scores[i][j] = float(scores[i][j])
+            print(scores[i][j])
+            # scores[i][j] = float(scores[i][j])
+
     # Calling the pack tuples function to store in a dictionary
     pack_tuples(names, scores)
 
