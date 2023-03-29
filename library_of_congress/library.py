@@ -137,7 +137,7 @@ def main():
     WOO_dict = {} 
 
     
-    with open(input_file, 'r',encoding='utf-8') as filedata:
+    with open(input_file, 'r', encoding='utf-8') as filedata:
         '''Reading file and separating the lines into 3 different lists'''
 
         # file = open('./library_of_congress/novel_text.txt', 'w', encoding='utf-8')
