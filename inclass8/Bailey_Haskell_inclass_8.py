@@ -4,6 +4,7 @@ import os.path
 '''This program reads a csv file and puts the gpa's in a tuple
 it then uses that tuple to find the cumulative gpa and writes that to a new file
 with the students name'''
+
 def extract_data(file):
     names = []
     scores = []
@@ -12,25 +13,18 @@ def extract_data(file):
     with open(file, 'r') as filedata:
         csvReader = csv.reader(filedata, delimiter=',')
         for line in csvReader:
+            # Only adding lines with words on them to list
             # Grabbing just the names and putting them in a list
-            # names.append(line[0])
-            if not line.strip().split(','):
-                print(line)
+            if (line):
                 scores.append(line)
+
     # loops through the lines and gets rid of the first element which is the names
-    print(len(scores))
-    # print(scores)
     for i in range(1, len(scores)):
-        # print(scores)
         names.append(scores[i][0])
-        # print(names)
-        # print(i)
         scores[i].pop(0)
         for j in range(len(scores[1])):
             # Coverting the string to a float
-            print(scores[i][j])
-            # scores[i][j] = float(scores[i][j])
-
+            scores[i][j] = float(scores[i][j])
     # Calling the pack tuples function to store in a dictionary
     pack_tuples(names, scores)
 
@@ -40,13 +34,16 @@ def pack_tuples(names, scores):
     # Making two dictionaries one with all gpas and one with just cgpa
     all_gpas = {}
     cgpas = {}
+    # Removing the first list which is the header of the classes
+    scores.pop(0)
+
     # Storing all gpas as a tuple to the student's names
     for i in range(len(names)):
         all_gpas[names[i]] = tuple(scores[i])
     # Storing just the cgpas into a different dictionary
-    for i in range(len(scores)):
+    for j in range(len(scores)):
         # Calculating cgpa by calling function
-        cgpas[names[i]] = calculateCGPA(scores[i])
+        cgpas[names[j]] = calculateCGPA(scores[j])
 
     # Opening and writing to a new file
     file = "./cgpa.csv"
