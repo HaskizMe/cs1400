@@ -1,110 +1,171 @@
-##problem one
+# import sys
 
-# def sort_values(data):
-#   sorted_values = tuple(sorted(data, key = lambda subtuple : sum([len(str(element)) for element in subtuple])))
-#   return(sorted_values)
-# print('Sorted Values:', sort_values(values))
+# test_file = sys.argv[1]
+
+# line_count = 0
+# char_count = 0
+
+# with open(test_file, "r") as input_file:
+#     line = input_file.readline()
+#     while line != "":
+#         line_count += 1
+#         char_count += len(line)
+#         line = input_file.readline()
+
+# print("{} lines".format(line_count))
+# print("{} characters".format(char_count))
 
 #problem 2
+# import sys, csv
 
-# def remove_NA(data):
-#     data_list = [list(subtuple) for subtuple in data]
-#     updated_data = ()
-#     for subtuple in data_list:
-#         if 'N/A' in subtuple:
-#             index_value = subtuple.index('N/A')
-#             subtuple[index_value] = 'Test not taken yet'
-#             updated_data += tuple(subtuple),
-#         else: updated_data += tuple(subtuple),
-#     return(updated_data)
+# test_file = sys.argv[1]
 
-# print("Updated Student Grades:", remove_NA(student_grades))
+# total1 = 0
+# total2 = 0
+# total3 = 0
+# total4 = 0
+# row_count = 0
 
-#problem 3
-# dividend = (10, 100, 1000, 10000)
-# divisor = (5, 50, 500, 5000)
+# with open(test_file, "r") as input_file:
+#     reader = csv.reader(input_file)
+#     for num1, num2, num3, num4 in reader:
+#         row_count += 1
+#         total1 += int(num1)
+#         total2 += int(num2)
+#         total3 += int(num3)
+#         total4 += int(num4)
 
-# def find_quotient(tuple1, tuple2):
-#   quotient = tuple((tuple1_element / tuple2_element) for tuple1_element, tuple2_element in zip(tuple1, tuple2))
-#   return(quotient)
+# print("{} {} {} {}".format(total1/row_count, total2/row_count, total3/row_count, total4/row_count))
 
-# print(find_quotient(dividend, divisor))
+# problem 3 
+# import sys
 
+# test_file = sys.argv[1]
 
+# with open(test_file, "r") as input_file:
+#     lines = input_file.readlines()
+#     lines.reverse()
+#     for line in lines:
+#         print(line)
 # problem 4
+# import sys, csv
 
-# numbers = (8, 5, 9, 14, 22)
+# test_file = sys.argv[1]
+# oldest_age = 0
+# oldest_name = ""
 
-# def find_adj_products(data):
-#     numbers_adj_prod = tuple(left_element * right_element for left_element, right_element in zip(data, data[1:]))
-#     return(numbers_adj_prod)
-
-# print(find_adj_products(numbers))
-
+# with open(test_file, "r") as input_file:
+#     reader = csv.reader(input_file, delimiter="\t")
+#     next(reader)
+#     for name, age, career in reader:
+#         if int(age) > oldest_age:
+#             oldest_age = int(age)
+#             oldest_name = name
+            
+# print("The oldest person is {}.".format(oldest_name))
 
 #problem 5
+# import sys, csv
 
-# tuple_pairs = ((4, 5), (6, 14), (100, 40), (0, 83))
+# test_file = sys.argv[1]
+# cities = []
 
-# def find_pair_diff(data):
-#     pair_diff = [abs(subtuple[-1] - subtuple[0]) for subtuple in data]
-#     return(tuple(pair_diff))
-
-# def find_max_diff(data):
-#     max_diff_subtuple = max(data, key = lambda subtuple: abs(subtuple[-1] - subtuple[0]))
-#     max_diff = max(abs(subtuple[-1] - subtuple[0]) for subtuple in data)
-#     return(max_diff_subtuple, max_diff)
-    
-
-# print(find_pair_diff(tuple_pairs))
-# print(find_max_diff(tuple_pairs))
-
-
-# lab 1 prompt 1
-# def find_longest_string_and_freq(data):
-#   data_split = data.split(" ")
-#   longest_string = max(data_split, key = len)
-#   longest_string_freq = data_split.count(longest_string)
-#   return(longest_string, longest_string_freq)
-
-# lab 1 prompt 2
-# dog = 'cat'
-# cat = 'dog'
-
-# (dog, cat) = (cat, dog)
-# print("Value of variable 'dog':", dog)
-# print("Value of variable 'cat':", cat)
-
-
-# lab 2 prompt 1
-# def find_avg_grade(data):
-#   sum_of_grades = 0
-#   count = 0
-#   for element in data:
-#     sum_of_grades += element[1]
-#     count += 1
-#   return(round((sum_of_grades / count), 2))
-
-
-# lab 2 prompt 2
-# def find_unique_tuple_freq(data):
-#   unique_tuple_freq = len(list(set(tuple(sorted(subtuple)) for subtuple in list(data))))
-#   return(unique_tuple_freq)
-
-# lab 3 prompt 1
-# all_menu_items = ((sampler, ) + (antipasto_platter, ) + (zuchinni_sticks, ) + (garlic_bread, ) + (bruschetta_trio, ) + (stuffed_portabella, ) + (eggplant_parm_sandwich, ) + (chick_n_caesar_wrap, ) + (italian_deli, ) + (classic_burger, ) + (meatball_on_a_ciabatta, ) + (chick_n_parmesan, ) + (eggplant_parmesan, ) + (lasagna, ) + (spaghetti_meatballs, ) + (tiramisu, ) + (cannoli, ) + (chocolate_cake, ) + (chocolate_almond_croissant, ))
-# print("All Menu Items:", all_menu_items)
-
-# menu_item_ratings_list = [element[6] for element in all_menu_items]
-# menu_item_ratings = tuple(menu_item_ratings_list)
-# print("Menu Item Ratings:", menu_item_ratings)
-
-# average_menu_item_rating = round((sum(menu_item_ratings)/len(menu_item_ratings)), 4)
-# print("Average Menu Item Rating:", average_menu_item_rating)
+# with open(test_file, "r") as input_file:
+#     reader = csv.reader(input_file)
+#     next(reader)
+#     for city, country, latitude, longitude in reader:
+#         if int(latitude) < 0:
+#             cities.append(city)
+            
+# print("The following cities are in the Southern Hemisphere: ", end="")
+# for city in cities:
+#     if city == cities[-1]:
+#         print(city + ".")
+#     else:
+#         print(city, end=", ")
+# with open("student_folder/.labs/myanmar.txt", "r") as input_file:
+#     lines = input_file.readlines()
+#     for line in lines:
+#         if "Burma" in line:
+#             print(line.replace("Burma", "Myanmar"), end="")
+#         else:
+#             print(line, end="")
 
 
 
-# lab 3 prompt 2
-# print("Menu Items Ranked In Order from Best to Worst:\n")
-# for counter_value, (menu_item, menu_item_rating) in enumerate(sorted(zip(menu_items, menu_item_ratings), key = lambda element: element[1], reverse = True), 1):
-#   print(counter_value, ":", menu_item, "with a rating of:", menu_item_rating, ".")
+# # 1
+# def find_key(d, v):
+#   keys = list(d.keys())
+#   values = list(d.values())
+#   index = values.index(v)
+#   return keys[index]
+
+# #2
+
+# def move_to_bottom(d, k):
+#   if k not in d:
+#     return 'The key is not in the dictionary'
+#   else:
+#     value = d.pop(k)
+#     d[k] = value
+#     return d
+
+# #3
+# def swap(d):
+#   keys = d.keys()
+#   values = d.values()
+#   swapped_tuples = zip(values, keys)
+#   value_types = [type(elem) for elem in values]
+  
+#   if type({}) in value_types or type([]) in value_types:
+#     return 'Cannot swap the keys and values for this dictionary'
+#   else:
+#     new_dict = dict(swapped_tuples)
+#     return new_dict
+
+# #4
+# def is_nested(d):
+#   values = d.values()
+#   value_types = [type(elem) for elem in values]
+#   if type(()) in value_types or type([]) in value_types or type({}) in value_types:
+#     return True
+#   else:
+#     return False
+
+# #5
+# import json
+
+# def compare(f1, f2):
+#   with open(f1) as file1, open(f2) as file2:
+#     data1 = json.load(file1)
+#     data2 = json.load(file2)
+#     if data1 == data2:
+#       return 'The dictionaries are equal'
+#     else:
+#       count1 = len(data1)
+#       count2 = len(data2)
+#       if count1 > count2:
+#         return 'Dictionary 1 is longer than dictionary 2'
+#       elif count2 > count1:
+#         return 'Dictionary 2 is longer than dictionary 1'
+#       else:
+#         return 'Dictionary 1 and dictionary 2 have the same length'
+
+
+#1
+def key_position(d, k):
+  keys = list(d.keys())
+
+  if k in keys:
+    return keys.index(k)
+  else:
+    return 'Key not found'
+
+#2
+
+#3
+
+#4
+
+#5
+
