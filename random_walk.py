@@ -41,7 +41,7 @@ def main():
                 # end of trial
                 turtle.pensize(500)
 
-                move(x,y,"black","circle",10)
+            move(x,y,"black","circle",5)
 
 if __name__ == "__main__":
     main()
