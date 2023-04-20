@@ -1,9 +1,15 @@
-'''Program supposed to plot random walks on turtle graphics'''
+import subprocess
+import tempfile
+import textwrap
+import traceback
 import turtle
 import sys
 import random
 import math
 import statistics
+
+'''Program supposed to plot random walks on turtle graphics'''
+
 import subprocess
 import tempfile
 import textwrap
@@ -46,62 +52,117 @@ def save_to_image(dest='random_walk.png'):
             minor = int(minor)
             # python version >= 3.10
             if minor >= 10:
+                # pylint: disable=E1120
                 traceback.print_exception(exp)
             # python version < 3.10
             else:
                 traceback.print_exception(None, exp, None)
 
 
+
+
+def north():
+    return (0,1)
+
+def east():
+    return (1,0)
+
+def south():
+    return (0,-1)
+
+def west():
+    return (-1,0)
+
+
 def pa_steps():
-    '''Pa steps'''
     return random.choice(((0,1),(0,-1),(1,0),(-1,0)))
 
 def mi_ma_steps():
-    '''mi-ma steps'''
     return random.choice(((0,1),(0,-1),(0,-1),(1,0),(-1,0)))
 
 def reg_steps():
-    '''reg steps'''
     return random.choice(((1,0),(-1,0)))
 
-def find_distances(my_list):
-    '''finding and storing all distances'''
-    new_list = []
-    for i in range(len(my_list)):
-        distance = 0
-        distance = abs(my_list[i][0]**2) + abs(my_list[i][1]**2)
-        distance = math.sqrt(distance)
-        new_list.append(distance)
-    return new_list
+
+# def walk(length):
+    
+#     pa_steps()
+
+#     pass
+
 
 def find_median(my_list):
-    '''Find median function'''
-    find_median_list = find_distances(my_list)
-    return round(statistics.mean(find_median_list),1)
+    # mean = 0
+    new_list = []
+    for i in range(len(my_list)):
+        mean = 0
+
+        for j in range(len(my_list[i])):
+
+            mean += abs(my_list[i][j]**2)
+            
+            # print(mean)
+            # mean = math.sqrt(mean)
+            # print(mean)
+        mean = math.sqrt(mean)
+        new_list.append(mean)
+    # return round(mean/len(my_list),1)
+    # print(new_list)
+    return round(statistics.mean(new_list),1)
 
 
 def find_max(my_list):
-    '''Find max function'''
-    find_max_list = find_distances(my_list)
-    find_max_list.sort()
-    return round(find_max_list[-1],1)
+    new_list = []
+    for i in range(len(my_list)):
+        max = 0
+        for j in range(len(my_list[i])):
+            max += abs(my_list[i][j]**2)
+        max = round(math.sqrt(max),1)
+        new_list.append(max)
+    new_list.sort()
+    return new_list[-1]
 
 def find_min(my_list):
-    '''Find min function'''
-    find_min_list = find_distances(my_list)
-    find_min_list.sort()
-    return round(find_min_list[0],1)
+    new_list = []
+    for i in range(len(my_list)):
+        max = 0
+        for j in range(len(my_list[i])):
+            max += abs(my_list[i][j]**2)
+        max = round(math.sqrt(max),1)
+        new_list.append(max)
+    new_list.sort()
+    return new_list[0]
 
 
 def find_cv(my_list):
-    '''Find cv function'''
-    find_cv_list = find_distances(my_list)
-    return round((statistics.stdev(find_cv_list))/(statistics.mean(find_cv_list)),1)
+    new_list = []
+    for i in range(len(my_list)):
+        mean = 0
+
+        for j in range(len(my_list[i])):
+
+            mean += abs(my_list[i][j]**2)
+
+        mean = math.sqrt(mean)
+        new_list.append(mean)
+
+    return round((statistics.stdev(new_list))/(statistics.mean(new_list)),1)
+
+def print_info(my_list):
+    print("Pa random walk of", my_list[0], "steps")
+    print('Median =',find_median(my_list), 'CV =', find_cv(my_list))
+    print('Max =', find_max(my_list), 'Min =', find_min(my_list))
+
+    # print("Pa random walk of", walk_lengths_list[1], "steps")
+    # print('Median =',find_median(pa_list2), 'CV =', find_cv(pa_list2))
+    # print('Max =', find_max(pa_list2), 'Min =', find_min(pa_list2))
+    return
 
 def simulate(walk_lengths_list, number_of_trials, person):
-    '''Simulating walking distances'''
+
     if person == 'pa':
         pa_list = []
+        test = []
         pa_list2 = []
         for i in range(len(walk_lengths_list)):
 
@@ -109,31 +170,34 @@ def simulate(walk_lengths_list, number_of_trials, person):
                 x_coords = 0
                 y_coords = 0
                 for k in range(walk_lengths_list[i]):
+
                     pa_coords = pa_steps()
                     x_coords += pa_coords[0]
                     y_coords += pa_coords[1]
-                if i == 0:
-                    j = 0
-                    k = 0
-                    pa_list.append((j+x_coords,k+y_coords))
-                else:
-                    pa_list2.append((x_coords,y_coords))
 
+                pa_list.append((x_coords,y_coords))
+        test.append(pa_list)
+        print(len(test))
+        print(test[0])
+        # print(test[1])
+                # print("index #" , i, "trial #", j+1,  '(',x_coords, y_coords,')')
 
-        if len(walk_lengths_list) > 1:
-            print("Pa random walk of", walk_lengths_list[0], "steps")
-            print('Mean =',find_median(pa_list), 'CV =', find_cv(pa_list))
-            print('Max =', find_max(pa_list), 'Min =', find_min(pa_list))
+        # if(len(walk_lengths_list) > 1):
+        #     for i in range(len(walk_lengths_list)):
 
-            print("Pa random walk of", walk_lengths_list[1], "steps")
-            print('Mean =',find_median(pa_list2), 'CV =', find_cv(pa_list2))
-            print('Max =', find_max(pa_list2), 'Min =', find_min(pa_list2))
+        #         # print_info(walk_lengths_list[i])
+            # print("Pa random walk of", walk_lengths_list[0], "steps")
+            # print('Median =',find_median(pa_list), 'CV =', find_cv(pa_list))
+            # print('Max =', find_max(pa_list), 'Min =', find_min(pa_list))
 
-        else:
-            # print(pa_list)
-            print("Pa random walk of", walk_lengths_list[0], "steps")
-            print('Mean =',find_median(pa_list), 'CV =', find_cv(pa_list))
-            print('Max =', find_max(pa_list), 'Min =', find_min(pa_list))
+            # print("Pa random walk of", walk_lengths_list[1], "steps")
+            # print('Median =',find_median(pa_list2), 'CV =', find_cv(pa_list2))
+            # print('Max =', find_max(pa_list2), 'Min =', find_min(pa_list2))
+
+        # else:
+        #     print("Pa random walk of", walk_lengths_list[0], "steps")
+        #     print('Median =',find_median(pa_list), 'CV =', find_cv(pa_list))
+        #     print('Max =', find_max(pa_list), 'Min =', find_min(pa_list))
 
 
     elif person == 'mi-ma':
@@ -145,30 +209,29 @@ def simulate(walk_lengths_list, number_of_trials, person):
                 j_coords = 0
                 k_coords = 0
                 for k in range(walk_lengths_list[i]):
-                    j = 0
-                    k = 0
+
                     ma_coords = mi_ma_steps()
                     j_coords += ma_coords[0]
                     k_coords += ma_coords[1]
-                if i == 0:
+                if(i == 0):
                     ma_list.append((j_coords,k_coords))
                 else:
                     ma_list2.append((j_coords,k_coords))
 
                 # print("index #" , i, "trial #", j+1,  '(',x_coords, y_coords,')')
 
-        if len(walk_lengths_list) > 1:
+        if(len(walk_lengths_list) > 1):
             print("Mi-Ma random walk of", walk_lengths_list[0], "steps")
-            print('Mean =',find_median(ma_list), 'CV =', find_cv(ma_list))
+            print('Median =',find_median(ma_list), 'CV =', find_cv(ma_list))
             print('Max =', find_max(ma_list), 'Min =', find_min(ma_list))
 
             print("Mi-Ma random walk of", walk_lengths_list[1], "steps")
-            print('Mean =',find_median(ma_list2), 'CV =', find_cv(ma_list2))
+            print('Median =',find_median(ma_list2), 'CV =', find_cv(ma_list2))
             print('Max =', find_max(ma_list2), 'Min =', find_min(ma_list2))
 
         else:
             print("Mi-Ma random walk of", walk_lengths_list[0], "steps")
-            print('Mean =',find_median(ma_list), 'CV =', find_cv(ma_list))
+            print('Median =',find_median(ma_list), 'CV =', find_cv(ma_list))
             print('Max =', find_max(ma_list), 'Min =', find_min(ma_list))
 
 
@@ -185,24 +248,24 @@ def simulate(walk_lengths_list, number_of_trials, person):
                     reg_coords = reg_steps()
                     l_coords += reg_coords[0]
                     m_coords += reg_coords[1]
-                if i == 0:
+                if(i == 0):
                     reg_list.append((l_coords,m_coords))
                 else:
                     reg_list2.append((l_coords,m_coords))
 
 
-        if len(walk_lengths_list) > 1:
+        if(len(walk_lengths_list) > 1):
             print("Reg random walk of", walk_lengths_list[0], "steps")
-            print('Mean =',find_median(reg_list), 'CV =', find_cv(reg_list))
+            print('Median =',find_median(reg_list), 'CV =', find_cv(reg_list))
             print('Max =', find_max(reg_list), 'Min =', find_min(reg_list))
 
             print("Reg random walk of", walk_lengths_list[1], "steps")
-            print('Mean =',find_median(reg_list2), 'CV =', find_cv(reg_list2))
+            print('Median =',find_median(reg_list2), 'CV =', find_cv(reg_list2))
             print('Max =', find_max(reg_list2), 'Min =', find_min(reg_list2))
 
         else:
             print("Reg random walk of", walk_lengths_list[0], "steps")
-            print('Mean =',find_median(reg_list), 'CV =', find_cv(reg_list))
+            print('Median =',find_median(reg_list), 'CV =', find_cv(reg_list))
             print('Max =', find_max(reg_list), 'Min =', find_min(reg_list))
 
 
@@ -219,24 +282,24 @@ def simulate(walk_lengths_list, number_of_trials, person):
                     pa_coords = pa_steps()
                     x_coords += pa_coords[0]
                     y_coords += pa_coords[1]
-                if i == 0:
+                if(i == 0):
                     pa_list.append((x_coords,y_coords))
                 else:
                     pa_list2.append((x_coords,y_coords))
 
 
-        if len(walk_lengths_list) > 1:
+        if(len(walk_lengths_list) > 1):
             print("Pa random walk of", walk_lengths_list[0], "steps")
-            print('Mean =',find_median(pa_list), 'CV =', find_cv(pa_list))
+            print('Median =',find_median(pa_list), 'CV =', find_cv(pa_list))
             print('Max =', find_max(pa_list), 'Min =', find_min(pa_list))
 
             print("Pa random walk of", walk_lengths_list[1], "steps")
-            print('Mean =',find_median(pa_list2), 'CV =', find_cv(pa_list2))
+            print('Median =',find_median(pa_list2), 'CV =', find_cv(pa_list2))
             print('Max =', find_max(pa_list2), 'Min =', find_min(pa_list2))
 
         else:
             print("Pa random walk of", walk_lengths_list[0], "steps")
-            print('Mean =',find_median(pa_list), 'CV =', find_cv(pa_list))
+            print('Median =',find_median(pa_list), 'CV =', find_cv(pa_list))
             print('Max =', find_max(pa_list), 'Min =', find_min(pa_list))
 
 
@@ -252,28 +315,29 @@ def simulate(walk_lengths_list, number_of_trials, person):
                     ma_coords = mi_ma_steps()
                     j_coords += ma_coords[0]
                     k_coords += ma_coords[1]
-                if i == 0:
+                if(i == 0):
                     ma_list.append((j_coords,k_coords))
                 else:
                     ma_list2.append((j_coords,k_coords))
 
 
-        if len(walk_lengths_list) > 1:
+        if(len(walk_lengths_list) > 1):
             print("Mi-Ma random walk of", walk_lengths_list[0], "steps")
-            print('Mean =',find_median(ma_list), 'CV =', find_cv(ma_list))
+            print('Median =',find_median(ma_list), 'CV =', find_cv(ma_list))
             print('Max =', find_max(ma_list), 'Min =', find_min(ma_list))
 
             print("Mi-Ma random walk of", walk_lengths_list[1], "steps")
-            print('Mean =',find_median(ma_list2), 'CV =', find_cv(ma_list2))
+            print('Median =',find_median(ma_list2), 'CV =', find_cv(ma_list2))
             print('Max =', find_max(ma_list2), 'Min =', find_min(ma_list2))
 
         else:
             print("Mi-Ma random walk of", walk_lengths_list[0], "steps")
-            print('Mean =',find_median(ma_list), 'CV =', find_cv(ma_list))
+            print('Median =',find_median(ma_list), 'CV =', find_cv(ma_list))
             print('Max =', find_max(ma_list), 'Min =', find_min(ma_list))
 
         reg_list = []
         reg_list2 = []
+
         for i in range(len(walk_lengths_list)):
 
             for j in range(number_of_trials):
@@ -284,63 +348,68 @@ def simulate(walk_lengths_list, number_of_trials, person):
                     reg_coords = reg_steps()
                     l_coords += reg_coords[0]
                     m_coords += reg_coords[1]
-                if i == 0:
+                if(i == 0):
                     reg_list.append((l_coords,m_coords))
                 else:
                     reg_list2.append((l_coords,m_coords))
 
                 # print("index #" , i, "trial #", j+1,  '(',x_coords, y_coords,')')
 
-        if len(walk_lengths_list) > 1:
+        if(len(walk_lengths_list) > 1):
             print("Reg random walk of", walk_lengths_list[0], "steps")
-            print('Mean =',find_median(reg_list), 'CV =', find_cv(reg_list))
+            print('Median =',find_median(reg_list), 'CV =', find_cv(reg_list))
             print('Max =', find_max(reg_list), 'Min =', find_min(reg_list))
 
             print("Reg random walk of", walk_lengths_list[1], "steps")
-            print('Mean =',find_median(reg_list2), 'CV =', find_cv(reg_list2))
+            print('Median =',find_median(reg_list2), 'CV =', find_cv(reg_list2))
             print('Max =', find_max(reg_list2), 'Min =', find_min(reg_list2))
 
         else:
             print("Reg random walk of", walk_lengths_list[0], "steps")
-            print('Mean =',find_median(reg_list), 'CV =', find_cv(reg_list))
+            print('Median =',find_median(reg_list), 'CV =', find_cv(reg_list))
             print('Max =', find_max(reg_list), 'Min =', find_min(reg_list))
 
     else:
-        print("Hi there")
+        print("error")
+
+    pass
 
 
 def plot():
-    '''Plotting points on screen'''
-    t_f = turtle
-    t_f.screensize(300,400)
-    t_f.shapesize(.8)
-    t_f.shape('circle')
-    t_f.color('black')
-    t_f.speed(5)
+    # define turtle, screen size
+    t = turtle
+    t.screensize(300,400)
+    t.shapesize(.5)
+    t.shape('circle')
+    t.color('black')
+    t.speed(5)
     pa_list = []
 
     for j in range(50):
         x_coords = 0
         y_coords = 0
         for k in range(100):
-            j = 0
-            k = 0
+
             pa_coords = pa_steps()
             x_coords += pa_coords[0]
             y_coords += pa_coords[1]
-        pa_list.append((j+x_coords,k+y_coords))
+        pa_list.append((x_coords,y_coords))
 
     for i in range(len(pa_list)):
-        x_coords = pa_list[i][0]
-        y_coords = pa_list[i][1]
-        t_f.penup()
-        t_f.goto(x_coords*5, y_coords*5)
-        t_f.pendown()
-        t_f.stamp()
+        x = pa_list[i][0]
+        y = pa_list[i][1]
+        t.penup()
+        t.goto(x*5, y*5)
+        t.pendown()
+        t.stamp()
+    # print(pa_list)
 
-    t_f.shape('square')
-    t_f.color('green')
-    t_f.speed(5)
+    # t.penup()
+    # t.goto(0,0)
+    # t.pendown()
+    t.shape('square')
+    t.color('green')
+    t.speed(5)
     ma_list = []
 
     for j in range(50):
@@ -354,16 +423,20 @@ def plot():
         ma_list.append((x_coords,y_coords))
 
     for i in range(len(pa_list)):
-        x_coords = ma_list[i][0]
-        y_coords = ma_list[i][1]
-        t_f.penup()
-        t_f.goto(x_coords*5, y_coords*5)
-        t_f.pendown()
-        t_f.stamp()
+        x = ma_list[i][0]
+        y = ma_list[i][1]
+        t.penup()
+        t.goto(x*5, y*5)
+        t.pendown()
+        t.stamp()
 
-    t_f.shape('triangle')
-    t_f.color('red')
-    t_f.speed(5)
+
+    # t.penup()
+    # t.goto(0,0)
+    # t.pendown()
+    t.shape('triangle')
+    t.color('red')
+    t.speed(5)
     reg_list = []
 
     for j in range(50):
@@ -377,16 +450,17 @@ def plot():
         reg_list.append((x_coords,y_coords))
 
     for i in range(len(pa_list)):
-        x_coords = reg_list[i][0]
-        y_coords = reg_list[i][1]
-        t_f.penup()
-        t_f.goto(x_coords*5, y_coords*5)
-        t_f.pendown()
-        t_f.stamp()
+        x = reg_list[i][0]
+        y = reg_list[i][1]
+        t.penup()
+        t.goto(x*5, y*5)
+        t.pendown()
+        t.stamp()
+
+    pass
 
 
 def main():
-    '''main function'''
     list_walk_lengths = []
     if ',' in sys.argv[1]:
         list_walk_lengths = sys.argv[1].split(',')
@@ -399,7 +473,9 @@ def main():
     person = sys.argv[3].lower()
 
     simulate(list_walk_lengths, trials, person)
-    plot()
-    save_to_image()
+
+    # plot()
+    # save_to_image()
+    pass
 if __name__ == "__main__":
     main()
