@@ -46,6 +46,7 @@ def save_to_image(dest='random_walk.png'):
             minor = int(minor)
             # python version >= 3.10
             if minor >= 10:
+                # pylint: disable=E1120
                 traceback.print_exception(exp)
             # python version < 3.10
             else:
@@ -54,11 +55,11 @@ def save_to_image(dest='random_walk.png'):
 
 def pa_steps():
     '''Pa steps'''
-    return random.choice(((0,1),(0,-1),(1,0),(-1,0)))
+    return random.choice(((0,1),(1,0),(0,-1),(-1,0)))
 
 def mi_ma_steps():
     '''mi-ma steps'''
-    return random.choice(((0,1),(0,-1),(0,-1),(1,0),(-1,0)))
+    return random.choice(((0,1),(1,0),(0,-1),(0,-1),(-1,0)))
 
 def reg_steps():
     '''reg steps'''
@@ -69,7 +70,7 @@ def find_distances(my_list):
     new_list = []
     for i in range(len(my_list)):
         distance = 0
-        distance = abs(my_list[i][0]**2) + abs(my_list[i][1]**2)
+        distance = (my_list[i][0]**2) + abs(my_list[i][1]**2)
         distance = math.sqrt(distance)
         new_list.append(distance)
     return new_list
@@ -100,7 +101,7 @@ def find_cv(my_list):
 
 def simulate(walk_lengths_list, number_of_trials, person):
     '''Simulating walking distances'''
-    if person == 'pa':
+    if person == 'Pa':
         pa_list = []
         pa_list2 = []
         for i in range(len(walk_lengths_list)):
@@ -136,7 +137,7 @@ def simulate(walk_lengths_list, number_of_trials, person):
             print('Max =', find_max(pa_list), 'Min =', find_min(pa_list))
 
 
-    elif person == 'mi-ma':
+    elif person == 'Mi-Ma':
         ma_list = []
         ma_list2 = []
         for i in range(len(walk_lengths_list)):
@@ -172,7 +173,7 @@ def simulate(walk_lengths_list, number_of_trials, person):
             print('Max =', find_max(ma_list), 'Min =', find_min(ma_list))
 
 
-    elif person == 'reg':
+    elif person == 'Reg':
         reg_list = []
         reg_list2 = []
         for i in range(len(walk_lengths_list)):
@@ -306,14 +307,14 @@ def simulate(walk_lengths_list, number_of_trials, person):
             print('Max =', find_max(reg_list), 'Min =', find_min(reg_list))
 
     else:
-        print("Hi there")
+        print(person)
 
 
 def plot():
     '''Plotting points on screen'''
     t_f = turtle
     t_f.screensize(300,400)
-    t_f.shapesize(.8)
+    t_f.shapesize(.05,.5)
     t_f.shape('circle')
     t_f.color('black')
     t_f.speed(5)
@@ -383,7 +384,7 @@ def plot():
         t_f.goto(x_coords*5, y_coords*5)
         t_f.pendown()
         t_f.stamp()
-
+    save_to_image()
 
 def main():
     '''main function'''
@@ -400,6 +401,6 @@ def main():
 
     simulate(list_walk_lengths, trials, person)
     plot()
-    save_to_image()
 if __name__ == "__main__":
     main()
+
