@@ -494,12 +494,18 @@ import turtle
 def main():
     #this function beings all of the work and calls for the user's input
     turtle_dict =  {}
-    split_sys = sys.argv[1].split(',')
-    split_sys[0] = int(split_sys[0])
-    split_sys[1] = int(split_sys[1])
+    '''main function'''
+    list_walk_lengths = []
+    if ',' in sys.argv[1]:
+        list_walk_lengths = sys.argv[1].split(',')
+        list_walk_lengths[0] = int(list_walk_lengths[0])
+        list_walk_lengths[1] = int(list_walk_lengths[1])
+    else:
+        list_walk_lengths.append(int(sys.argv[1]))
+
     trials = int(sys.argv[2])
-    model = sys.argv[3]
-    simulate(split_sys, trials, model, turtle_dict)
+    person = sys.argv[3].lower()
+    simulate(list_walk_lengths, trials, person, turtle_dict)
 def get_direction(model):
     #this function gives the directions possible for all three models and randomly chooses one
     direction_dict = {'Pa':[(0,1),(1,0),(0,-1),(-1,0)],
@@ -511,7 +517,7 @@ def simulate(split_sys, trials, model, turtle_dict):
     #then they print out the ending results
     coordinates = []
     distance = []
-    if model == 'Pa':
+    if model == 'pa':
         for step_choice in split_sys:
             coordinates = []
             distance = []
@@ -526,7 +532,7 @@ def simulate(split_sys, trials, model, turtle_dict):
             print(f'{model} random walk of {step_choice} steps')
             values(distance)
             turtle_dict['Pa'] = coordinates
-    elif model == 'Mi-ma':
+    elif model == 'mi-ma':
         for step_choice in split_sys:
             coordinates = []
             distance = []
@@ -541,7 +547,7 @@ def simulate(split_sys, trials, model, turtle_dict):
             print(f'{model} random walk of {step_choice} steps')
             values(distance)
             turtle_dict['Mi-ma'] = coordinates
-    elif model == 'Reg':
+    elif model == 'reg':
         for step_choice in split_sys:
             coordinates = []
             distance = []
@@ -552,11 +558,11 @@ def simulate(split_sys, trials, model, turtle_dict):
                 coordinates.append(x)
                 dist = walk_distance(x)
                 distance.append(dist)
-                direction_dict['Reg']
+                get_direction('Reg')
             print(f'{model} random walk of {step_choice} steps')
             values(distance)
             turtle_dict['Reg'] = coordinates
-    elif model == 'All':
+    elif model == 'all':
         pa_position = [0,0]
         mima_position = [0,0]
         reg_position = [0,0]

@@ -69,7 +69,7 @@ def find_distances(my_list):
     new_list = []
     for i in range(len(my_list)):
         distance = 0
-        distance = abs(my_list[i][0]**2) + abs(my_list[i][1]**2)
+        distance = (my_list[i][0]**2) + abs(my_list[i][1]**2)
         distance = math.sqrt(distance)
         new_list.append(distance)
     return new_list
