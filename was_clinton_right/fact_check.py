@@ -24,6 +24,12 @@ def store_to_list(data_list):
 
     Store_list_to_dict(data_list)
 
+def convert_to_decimal(num):
+    if num > 1000000:
+        return f'{round(num / 1000000, 1)}M'
+    else:
+        return f'{round(num / 1000000, 1)}K'
+    
 def Store_list_to_dict(my_list):
     my_dict = {
         'John F. Kennedy': 0, 
@@ -37,23 +43,55 @@ def Store_list_to_dict(my_list):
         'George W. Bush': [],
         'Barack Obama': [],
         }
+    num1 = 0
+    num2 = 0
     for i in range(len(my_list)):
+
         for j in range(len(my_list[i])):
+            # Checking years for John F. Kennedy
             if my_list[i][0] == '1961' or my_list[i][0] == '1962' or my_list[i][0] == '1963':
-                my_list[i].pop(0)
-                num = my_dict.get('John F. Kennedy') + sum(my_list[i])
-                my_dict['John F. Kennedy'] = num
-    # print(sum(my_dict.get('John F. Kennedy')))
+                if my_list[i][0] == '1961':
+                    my_list[i].pop(0)
+                    my_list[i].sort()
+                    num1 = my_list[i][-1]
+                elif my_list[i][0] == '1963':
+                    my_list[i].pop(0)
+                    my_list[i].sort()
+                    num2 = my_list[i][-1]
+                    my_dict['John F. Kennedy'] = convert_to_decimal(round((num2 - num1)*1000,1))
+
+            # Checking years for Lyndon B. Johnson
+            elif my_list[i][0] == '1964' or my_list[i][0] == '1965' or my_list[i][0] == '1966' or my_list[i][0] == '1967' or my_list[i][0] == '1968' or my_list[i][0] == '1969':
+                if my_list[i][0] == '1964':
+                    my_list[i].pop(0)
+                    my_list[i].sort()
+                    num1 = my_list[i][-1]
+                    print(num1)
+                elif my_list[i][0] == '1969':
+                    my_list[i].pop(0)
+                    my_list[i].sort()
+                    num2 = my_list[i][-1]
+                    print(num2)
+                    my_dict['Lyndon B. Johnson'] = convert_to_decimal(round((num2 - num1)*1000,1))
+
+            # Checking years for Richard M. Nixon
+            elif my_list[i][0] == '1964' or my_list[i][0] == '1965' or my_list[i][0] == '1966' or my_list[i][0] == '1967' or my_list[i][0] == '1968' or my_list[i][0] == '1969':
+                if my_list[i][0] == '1964':
+                    my_list[i].pop(0)
+                    my_list[i].sort()
+                    num1 = my_list[i][-1]
+                    print(num1)
+                elif my_list[i][0] == '1969':
+                    my_list[i].pop(0)
+                    my_list[i].sort()
+                    num2 = my_list[i][-1]
+                    print(num2)
+                    my_dict['Lyndon B. Johnson'] = convert_to_decimal(round((num2 - num1)*1000,1))
+
     print(my_dict.get('John F. Kennedy'))
-    
-    # for i in range(len(my_list)):
-    #     for j in range(len(my_list[i])):
-    #         my_list[i].pop(0)
-    #         print(sum(my_list[i]))
-    print(my_list[0])
-    print(my_list[1])
-    print(my_list[2])
-    print((sum((my_list[0]))/ len(my_list[0])) + (sum((my_list[1]))/ len(my_list[1]))+ (sum((my_list[2]))/ len(my_list[2])))
+    print(my_dict.get('Lyndon B. Johnson'))
+
+
 def main():
     # John F. Kennedy 1961 - 1963 Democrat
     # Lyndon B. Johnson 1963 - 1969 Democrat
