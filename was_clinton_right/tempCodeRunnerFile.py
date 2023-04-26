@@ -1,2 +1,1 @@
-
-                my_list[i].sort()
+    # print(my_list[2])
