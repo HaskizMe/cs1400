@@ -1,17 +1,21 @@
 import csv
+import os
+'''This program checks the facts of President Clinton's statment'''
 # Reads the data and stores into list
 def read_data(filename):
+    '''Reads in data from BLS_private.csv'''
     my_list = []
     with open(filename) as csvfile:
         # Grabbing each row and storing it to a list
-        csvReader = csv.reader(csvfile, delimiter=',')
-        for row in csvReader:
+        csv_reader = csv.reader(csvfile, delimiter=',')
+        for row in csv_reader:
             my_list.append(row)
     # Calling the store to list function
     store_to_list(my_list)
 
 # Filters the data to show the year and numbers in their own seperate list
 def store_to_list(data_list):
+    '''Stores the information into a list'''
     for i in range(6):
         # removes the header rows
         data_list.pop(0)
@@ -22,15 +26,20 @@ def store_to_list(data_list):
             # Converts all numbers to ints except for dates
             data_list[i][j] = int(data_list[i][j])
 
-    Store_list_to_dict(data_list)
+    store_list_to_dict(data_list)
 
 def convert_to_decimal(num):
-    if num > 1000000:
-        return f'{round(num / 1000000, 1)}M'
+    return round(num / 1000000, 1)
+
+def add_word(num):
+    '''Formatting number to millions or thousands'''
+    if num < 1.0:
+        return f'{num} Thousand'
     else:
-        return f'{round(num / 1000000, 1)}K'
+        return f'{num} Million'
     
-def Store_list_to_dict(my_list):
+def store_list_to_dict(my_list):
+    '''Stores information from list to dictionary'''
     my_dict = {
         'John F. Kennedy': 0, 
         'Lyndon B. Johnson': [], 
@@ -48,9 +57,10 @@ def Store_list_to_dict(my_list):
     for i in range(len(my_list)):
 
         for j in range(len(my_list[i])):
+            j = 0
             # Checking years for John F. Kennedy
-            if my_list[i][0] == '1961' or my_list[i][0] == '1963':
-                if my_list[i][0] == '1961':
+            if my_list[i][j] == '1961' or my_list[i][0] == '1963':
+                if my_list[i][j] == '1961':
                     my_list[i].pop(0)
                     # January 1961
                     num1 = my_list[i][0]
@@ -168,20 +178,54 @@ def Store_list_to_dict(my_list):
                     # Decemeber 2012
                     num2 = my_list[i][-1]
                     my_dict['Barack Obama'] = convert_to_decimal(round((num2 - num1)*1000,1))
-    return my_dict
+    
+    write_to_conclusions(my_dict)
+
+
+def write_to_conclusions(my_dict):
+    '''Write conclusions to conclusions file'''
+    if os.path.isfile("./was_clinton_right/conclusions.md"):
+        with open("./was_clinton_right/conclusions.md" , 'w') as file:
+        # f = open("/conclusions.md" , 'w')
+
+            file.write("Democrats:\n")
+            jobs = 0
+            for keys, value in my_dict.items():
+                
+                if keys == 'John F. Kennedy' or keys == 'Lyndon B. Johnson' or keys == 'Jimmy Carter' or keys == 'Bill Clinton' or keys == 'Barack Obama':
+                    jobs += value
+                    value = add_word(value)
+                    file.write(keys + ' ' + value +' jobs created\n')
+                
+            jobs = add_word(round(jobs,1))
+            file.write('\nDemocrats total jobs created: ' + jobs + '\n')
+            file.write('\n-----------------------------------------------\n')
+            jobs = 0
+            file.write("\nRepublicans:\n")
+            for keys, value in my_dict.items():
+                if keys == 'Richard M. Nixon' or keys == 'Gerald R. Ford' or keys == 'Ronald Reagan' or keys == 'George Bush' or keys == 'George W. Bush':
+                    jobs += value
+                    value = add_word(value)
+                    file.write(keys + ' ' + value+' jobs created\n')
+
+            jobs = add_word(round(jobs,1))
+            file.write('\nRepublicans total jobs created: ' + jobs + '\n')
+            conclusion = """\nRegarding clinton's statement he was right. According to the numbers
+the democrats produced roughly 42 million jobs and the Republicans produced 24 million
+jobs. Although the numbers may not be 100 percent accurate due to some terms ending
+earlier than others, we can conclude that Clinton was right that the democrats have produced
+way more jobs than the republicans in the shorter amount of time the democrats have been in office."""
+            file.write(conclusion)
+    else:
+        print("error")
 
 def main():
-    # John F. Kennedy 1961 - 1963 Democrat
-    # Lyndon B. Johnson 1964 - 1968 Democrat
-    # Richard M. Nixon 1969 - 1974 Republican
-    # Gerald R. Ford 1975 - 1976 Republican
-    # Jimmy Carter 1977 - 1980 Democrat
-    # Ronald Reagan 1981 - 1988 Republican
-    # George Bush 1989 - 1992 Republican
-    # Bill Clinton 1993 - 2000 Democrat
-    # George W. Bush 2001 - 2008 Republican
-    # Barack Obama 2009 - 2012 Democrat
+    '''Main function'''
     filename = "./was_clinton_right/BLS_private.csv"
-    read_data(filename)
+    # filename = "/BLS_private.csv"
+    if os.path.isfile(filename):
+        read_data(filename)
+    else:
+        print("error")
 if __name__ == "__main__":
     main()
